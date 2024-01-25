@@ -15,6 +15,12 @@ friend Value operator _O(const Value&, _T);
 friend bool operator _O(_T, const Value&); \
 friend bool operator _O(const Value&, _T);
 
+#define HJSON_OP_DECL_VAL_(_T, _O) \
+friend Value operator _O(_T, const Value&);
+
+#define HJSON_OP_DECL_BOOL_(_T, _O) \
+friend bool operator _O(_T, const Value&);
+
 #define HJSON_OP_DECL_ASS(_T, _O) \
 Value& operator _O(_T);
 
@@ -40,6 +46,30 @@ HJSON_OP_DECL_ASS(_T, /=)
 #define HJSON_OPERATORS_DECLARATION_C(_T) \
 HJSON_OPERATORS_DECLARATION_B(_T) \
 HJSON_OP_DECL_VAL(_T, %) \
+HJSON_OP_DECL_ASS(_T, %=)
+
+#define HJSON_OPERATORS_DECLARATION_A_(_T) \
+HJSON_OP_DECL_BOOL_(_T, <) \
+HJSON_OP_DECL_BOOL_(_T, >) \
+HJSON_OP_DECL_BOOL_(_T, <=) \
+HJSON_OP_DECL_BOOL_(_T, >=) \
+HJSON_OP_DECL_BOOL_(_T, ==) \
+HJSON_OP_DECL_BOOL_(_T, !=) \
+HJSON_OP_DECL_ASS(_T, +=)
+
+#define HJSON_OPERATORS_DECLARATION_B_(_T) \
+HJSON_OPERATORS_DECLARATION_A_(_T) \
+HJSON_OP_DECL_VAL_(_T, +) \
+HJSON_OP_DECL_VAL_(_T, -) \
+HJSON_OP_DECL_VAL_(_T, *) \
+HJSON_OP_DECL_VAL_(_T, /) \
+HJSON_OP_DECL_ASS(_T, -=) \
+HJSON_OP_DECL_ASS(_T, *=) \
+HJSON_OP_DECL_ASS(_T, /=)
+
+#define HJSON_OPERATORS_DECLARATION_C_(_T) \
+HJSON_OPERATORS_DECLARATION_B_(_T) \
+HJSON_OP_DECL_VAL_(_T, %) \
 HJSON_OP_DECL_ASS(_T, %=)
 
 
@@ -198,7 +228,7 @@ public:
   HJSON_OPERATORS_DECLARATION_C(unsigned long)
   HJSON_OPERATORS_DECLARATION_C(long long)
   HJSON_OPERATORS_DECLARATION_C(unsigned long long)
-  HJSON_OPERATORS_DECLARATION_C(const Value&)
+  HJSON_OPERATORS_DECLARATION_C_(const Value&)
 
   Value operator +() const;
   Value operator -() const;
@@ -365,7 +395,6 @@ private:
   // Make the copy constructor private in order to avoid accidental creation of
   // MapProxy variables like this:
   //   auto myVal = val["one"];
-  MapProxy(const MapProxy&) = default;
   MapProxy(Value&&);
 
 public:
