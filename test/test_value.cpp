@@ -1560,7 +1560,7 @@ alfa: a
     Hjson::EncoderOptions encOpt;
     encOpt.quoteAlways = true;
     encOpt.omitRootBraces = true;
-    oss << Hjson::StreamEncoder(root, encOpt);
+    oss << Hjson::Marshal(root, encOpt);
     auto str2 = oss.str();
     assert(str2 == str1);
     oss.str("");
@@ -1569,21 +1569,20 @@ alfa: a
     assert(str2 == strPlain);
     Hjson::Value root2;
     std::stringstream ss(str1);
-    ss >> root2;
+    root2 = Hjson::Unmarshal(ss.str(), decOpt);
     assert(root2.deep_equal(root));
     ss.str(str1);
-    ss >> Hjson::StreamDecoder(root2, decOpt);
+    root2 = Hjson::Unmarshal(ss.str(), decOpt);
     assert(root2.deep_equal(root));
     str2 = Hjson::Marshal(root2, encOpt);
     assert(str2 == str1);
-    Hjson::StreamEncoder se(root, encOpt);
+    auto se = Hjson::Marshal(root, encOpt);
     oss.str("");
     oss << se;
     str2 = oss.str();
     assert(str2 == str1);
-    Hjson::StreamDecoder sd(root2, decOpt);
     ss.str(str1);
-    ss >> sd;
+    root2 = Hjson::Unmarshal(ss.str(), decOpt);
     assert(root2.deep_equal(root));
   }
 

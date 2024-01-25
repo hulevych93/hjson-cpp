@@ -377,32 +377,6 @@ public:
 };
 
 
-class StreamEncoder {
-public:
-  const Value& v;
-  const EncoderOptions& o;
-
-  StreamEncoder(const Value&, const EncoderOptions&);
-
-  // Like `Marshal(Value, EncoderOptions)` but outputs the result to the stream.
-  friend std::ostream& operator <<(std::ostream&, const StreamEncoder&);
-};
-
-
-class StreamDecoder {
-public:
-  Value& v;
-  const DecoderOptions& o;
-
-  StreamDecoder(Value&, const DecoderOptions&);
-
-  // Like `Unmarshal(std::string, DecoderOptions)` but from a stream.
-  friend std::istream& operator >>(std::istream&, StreamDecoder&);
-  // Like `Unmarshal(std::string, DecoderOptions)` but from a stream.
-  friend std::istream& operator >>(std::istream&, StreamDecoder&&);
-};
-
-
 // Returns a properly indented text representation of the input value tree.
 // Extra options can be specified in the input parameter "options".
 std::string Marshal(const Value& v, const EncoderOptions& options = EncoderOptions());

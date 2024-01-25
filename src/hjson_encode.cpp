@@ -625,17 +625,4 @@ std::ostream &operator <<(std::ostream& out, const Value& v) {
   return out;
 }
 
-
-StreamEncoder::StreamEncoder(const Value& _v, const EncoderOptions& _o)
-  : v(_v), o(_o)
-{
-}
-
-
-std::ostream &operator <<(std::ostream& out, const StreamEncoder& se) {
-  _marshalStream(se.v, se.o, &out);
-  return out;
-}
-
-
 }

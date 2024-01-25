@@ -807,30 +807,4 @@ Value UnmarshalFromFile(const std::string &path, const DecoderOptions& options) 
   return Unmarshal(inStr.c_str(), len, options);
 }
 
-
-StreamDecoder::StreamDecoder(Value& _v, const DecoderOptions& _o)
-  : v(_v), o(_o)
-{
-}
-
-
-std::istream &operator >>(std::istream& in, StreamDecoder& sd) {
-  std::string inStr{ std::istreambuf_iterator<char>(in),
-    std::istreambuf_iterator<char>() };
-  sd.v.assign_with_comments(Unmarshal(inStr, sd.o));
-
-  return in;
-}
-
-
-std::istream &operator >>(std::istream& in, StreamDecoder&& sd) {
-  return operator >>(in, sd);
-}
-
-
-std::istream &operator >>(std::istream& in, Value& v) {
-  return in >> StreamDecoder(v, DecoderOptions());
-}
-
-
 }
