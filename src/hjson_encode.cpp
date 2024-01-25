@@ -435,7 +435,7 @@ static void _str(Encoder *e, const Value& value, bool isRootObject, bool isObjEl
           }
         }
       } else {
-        for (auto it : value) {
+        for (auto& it : value) {
           if (it.second.defined()) {
             _objElem(e, it.first, it.second, &isFirst, isRootObject, commentAfter);
             commentAfter = it.second.get_comment_after();

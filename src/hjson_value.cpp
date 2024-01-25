@@ -1214,7 +1214,7 @@ bool Value::deep_equal(const Value& other) const {
 
   case Type::Map:
     {
-      auto itA = this->begin(), endA = this->end(), itB = other.begin();
+      auto itA = begin(*this), endA = end(*this), itB = begin(other);
       while (itA != endA) {
         if (!itA->second.deep_equal(itB->second)) {
           return false;
@@ -1392,47 +1392,47 @@ std::string Value::key(int index) const {
 }
 
 
-ValueMap::iterator Value::begin() {
-  if (prv->type != Type::Map) {
+ValueMap::iterator begin(const Value& value) {
+  if (value.prv->type != Type::Map) {
     // Some C++ compilers might not allow comparing this to another
     // default-constructed iterator.
     return ValueMap::iterator();
   }
 
-  return prv->m->m.begin();
+  return value.prv->m->m.begin();
 }
 
 
-ValueMap::iterator Value::end() {
-  if (prv->type != Type::Map) {
+ValueMap::iterator end(const Value& value) {
+  if (value.prv->type != Type::Map) {
     // Some C++ compilers might not allow comparing this to another
     // default-constructed iterator.
     return ValueMap::iterator();
   }
 
-  return prv->m->m.end();
+  return value.prv->m->m.end();
 }
 
 
-ValueMap::const_iterator Value::begin() const {
-  if (prv->type != Type::Map) {
+ValueMap::const_iterator cbegin(const Value& value) {
+  if (value.prv->type != Type::Map) {
     // Some C++ compilers might not allow comparing this to another
     // default-constructed iterator.
     return ValueMap::const_iterator();
   }
 
-  return prv->m->m.begin();
+  return value.prv->m->m.begin();
 }
 
 
-ValueMap::const_iterator Value::end() const {
-  if (prv->type != Type::Map) {
+ValueMap::const_iterator cend(const Value& value) {
+  if (value.prv->type != Type::Map) {
     // Some C++ compilers might not allow comparing this to another
     // default-constructed iterator.
     return ValueMap::const_iterator();
   }
 
-  return prv->m->m.end();
+  return value.prv->m->m.end();
 }
 
 

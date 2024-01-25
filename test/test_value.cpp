@@ -483,7 +483,7 @@ void test_value() {
     assert(val["first"] == "leaf1");
     assert(!strcmp("leaf1", val["first"]));
 
-    auto it = val.begin();
+    auto it = begin(val);
     assert(it->first == "first");
     assert(it->second == "leaf1");
     ++it;
@@ -493,10 +493,10 @@ void test_value() {
     assert(it->first == "second");
     assert(it->second == "leaf1");
     ++it;
-    assert(it == val.end());
+    assert(it == end(val));
 
     const Hjson::Value valConst = val;
-    std::map<std::string, Hjson::Value>::const_iterator itConst = valConst.begin();
+    std::map<std::string, Hjson::Value>::const_iterator itConst = cbegin(valConst);
     assert(itConst->first == "first");
     assert(itConst->second == "leaf1");
     ++itConst;
@@ -506,7 +506,7 @@ void test_value() {
     assert(itConst->first == "second");
     assert(itConst->second == "leaf1");
     ++itConst;
-    assert(itConst == valConst.end());
+    assert(itConst == cend(valConst));
   }
 
   {

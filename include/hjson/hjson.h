@@ -295,10 +295,12 @@ public:
   Value& at(const char *key);
   // Iterations are always done in alphabetical key order. Returns a default
   // constructed iterator if this Value is of any other type than Map.
-  std::map<std::string, Value>::iterator begin();
-  std::map<std::string, Value>::iterator end();
-  std::map<std::string, Value>::const_iterator begin() const;
-  std::map<std::string, Value>::const_iterator end() const;
+
+  friend std::map<std::string, Value>::iterator begin(const Value& value);
+  friend std::map<std::string, Value>::iterator end(const Value& value);
+  friend std::map<std::string, Value>::const_iterator cbegin(const Value& value);
+  friend std::map<std::string, Value>::const_iterator cend(const Value& value);
+
   // Removes the child element specified by the input key if this Value is of
   // type Map. Returns the number of erased elements (0 or 1). Throws
   // Hjson::type_mismatch if this Value is of any other type than Map or
