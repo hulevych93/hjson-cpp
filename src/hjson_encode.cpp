@@ -435,10 +435,11 @@ static void _str(Encoder *e, const Value& value, bool isRootObject, bool isObjEl
           }
         }
       } else {
-        for (auto& it : value) {
-          if (it.second.defined()) {
-            _objElem(e, it.first, it.second, &isFirst, isRootObject, commentAfter);
-            commentAfter = it.second.get_comment_after();
+        for (auto i = 0; i < value.size(); ++i) {
+          auto it = value[i];
+          if (it.defined()) {
+            _objElem(e, value.key(i), it, &isFirst, isRootObject, commentAfter);
+            commentAfter = it.get_comment_after();
           }
         }
       }

@@ -1214,7 +1214,7 @@ bool Value::deep_equal(const Value& other) const {
 
   case Type::Map:
     {
-      auto itA = begin(*this), endA = end(*this), itB = begin(other);
+      auto itA = prv->m->m.begin(), endA = prv->m->m.end(), itB = other.prv->m->m.begin();
       while (itA != endA) {
         if (!itA->second.deep_equal(itB->second)) {
           return false;
@@ -1390,51 +1390,6 @@ std::string Value::key(int index) const {
     throw type_mismatch("Must be of type Map for that operation.");
   }
 }
-
-
-ValueMap::iterator begin(const Value& value) {
-  if (value.prv->type != Type::Map) {
-    // Some C++ compilers might not allow comparing this to another
-    // default-constructed iterator.
-    return ValueMap::iterator();
-  }
-
-  return value.prv->m->m.begin();
-}
-
-
-ValueMap::iterator end(const Value& value) {
-  if (value.prv->type != Type::Map) {
-    // Some C++ compilers might not allow comparing this to another
-    // default-constructed iterator.
-    return ValueMap::iterator();
-  }
-
-  return value.prv->m->m.end();
-}
-
-
-ValueMap::const_iterator cbegin(const Value& value) {
-  if (value.prv->type != Type::Map) {
-    // Some C++ compilers might not allow comparing this to another
-    // default-constructed iterator.
-    return ValueMap::const_iterator();
-  }
-
-  return value.prv->m->m.begin();
-}
-
-
-ValueMap::const_iterator cend(const Value& value) {
-  if (value.prv->type != Type::Map) {
-    // Some C++ compilers might not allow comparing this to another
-    // default-constructed iterator.
-    return ValueMap::const_iterator();
-  }
-
-  return value.prv->m->m.end();
-}
-
 
 size_t Value::erase(const std::string &key) {
   if (prv->type == Type::Undefined) {

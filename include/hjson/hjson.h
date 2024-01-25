@@ -254,11 +254,6 @@ public:
   operator const char*() const;
   operator std::string() const;
 
-  // Like `Marshal(Value)` but outputs the result to the stream.
-  friend std::ostream& operator <<(std::ostream&, const Value&);
-  // Like `Unmarshal(std::string)` but from the stream.
-  friend std::istream& operator >>(std::istream&, Value&);
-
   // Returns the type of this Value.
   Type type() const;
   // Returns true if the type of this Value is anything else than Undefined.
@@ -325,11 +320,6 @@ public:
   Value& at(const char *key);
   // Iterations are always done in alphabetical key order. Returns a default
   // constructed iterator if this Value is of any other type than Map.
-
-  friend std::map<std::string, Value>::iterator begin(const Value& value);
-  friend std::map<std::string, Value>::iterator end(const Value& value);
-  friend std::map<std::string, Value>::const_iterator cbegin(const Value& value);
-  friend std::map<std::string, Value>::const_iterator cend(const Value& value);
 
   // Removes the child element specified by the input key if this Value is of
   // type Map. Returns the number of erased elements (0 or 1). Throws
