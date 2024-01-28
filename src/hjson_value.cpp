@@ -1472,7 +1472,7 @@ double Value::to_double() const {
 }
 
 
-std::int64_t Value::to_int64() const {
+long long Value::to_int64() const {
   switch (prv->type) {
   case Type::Undefined:
   case Type::Null:

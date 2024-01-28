@@ -332,7 +332,7 @@ public:
   // 0 or 0.0 for the types Undefined and Null. Will parse strings to numbers
   // and print numbers to strings if necessary.
   double to_double() const;
-  std::int64_t to_int64() const;
+  long long to_int64() const;
   std::string to_string() const;
 
   // Sets comment shown before this Value. If this Value is an element in a
