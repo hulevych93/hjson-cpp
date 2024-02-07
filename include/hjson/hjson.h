@@ -385,6 +385,7 @@ private:
   // Make the copy constructor private in order to avoid accidental creation of
   // MapProxy variables like this:
   //   auto myVal = val["one"];
+  MapProxy(const MapProxy&) = default;
   MapProxy(Value&&);
 
 public:

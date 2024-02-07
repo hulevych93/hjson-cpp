@@ -8,7 +8,7 @@ set(src
   hjson_value.cpp
 )
 
-add_library(hjson OBJECT ${header} ${src})
+add_library(hjson ${header} ${src})
 
 target_include_directories(hjson PUBLIC
   $<BUILD_INTERFACE:${header_path}>
