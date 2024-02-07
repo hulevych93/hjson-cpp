@@ -253,22 +253,6 @@ Value::Value(const Value& other)
   }
 }
 
-
-Value::Value(Value&& other)
-  : prv(other.prv),
-    cm(other.cm)
-{
-}
-
-
-// Even though the MapProxy is temporary, it contains references that are owned
-// by a non-temporary object. Make sure the lvalue constructor is called.
-Value::Value(MapProxy&& other)
-  : Value(other)
-{
-}
-
-
 Value::Value(std::shared_ptr<ValueImpl> _prv, std::shared_ptr<Comments> _cm)
   : prv(_prv),
     cm(_cm)

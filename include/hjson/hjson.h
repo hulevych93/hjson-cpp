@@ -189,8 +189,6 @@ public:
   Value(const std::string&);
   Value(Type);
   Value(const Value&);
-  Value(Value&&);
-  Value(MapProxy&&);
   virtual ~Value();
 
   Value& operator =(const Value&);
@@ -390,6 +388,7 @@ private:
 
 public:
   ~MapProxy() override;
+  MapProxy(MapProxy&&) = default;
   MapProxy& operator =(const MapProxy&);
   MapProxy& operator =(const Value&);
   MapProxy& operator =(Value&&);
